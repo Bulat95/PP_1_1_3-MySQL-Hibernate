@@ -10,14 +10,12 @@ import org.hibernate.service.ServiceRegistry;
 import java.sql.*;
 import java.util.Properties;
 
-import jm.task.core.jdbc.model.User;
 
 public class Util {
     private static SessionFactory sessionFactory;
 
     public void executeSQL(String sqlCommand) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/USERS", "root", "1234");) {
-            //Statement заменил на PreparedStatement
             PreparedStatement preparedStatement = conn.prepareStatement(sqlCommand);
             preparedStatement.executeUpdate();
         } catch (Exception ex) {
@@ -25,26 +23,11 @@ public class Util {
         }
     }
 
-    //    public SessionFactory getSessionFactory() {
-//        if (sessionFactory == null) {
-//            try {
-//                Configuration configuration = new Configuration().configure();
-//                configuration.addAnnotatedClass(User.class);
-//                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-//                sessionFactory = configuration.buildSessionFactory(builder.build());
-//
-//            } catch (Exception e) {
-//                System.out.println("Исключение!" + e);
-//            }
-//        }
-//        return sessionFactory;
-//    }
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
 
-                // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
                 settings.put(Environment.URL, "jdbc:mysql://localhost/users?" + "&serverTimeZone=Europe/Moscow&useSSL=false&allowPublicKeyRetrieval=true");
