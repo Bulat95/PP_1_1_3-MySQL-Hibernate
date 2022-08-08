@@ -64,7 +64,6 @@ public class User {
     public String toString() {
         return name + " " + lastName + " " + age;
     }
-    // Добавил equals и hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
