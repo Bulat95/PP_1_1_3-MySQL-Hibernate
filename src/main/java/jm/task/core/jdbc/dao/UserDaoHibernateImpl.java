@@ -11,7 +11,7 @@ import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
     private final Util util = new Util();
-    Transaction transaction = null;
+    private Transaction transaction = null;
 
     public UserDaoHibernateImpl() {
 
